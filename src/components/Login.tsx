@@ -4,7 +4,7 @@ import { clientAxios } from "../hooks/clienteAxios";
 import { Form, useNavigate } from "react-router-dom";
 import { applogin, isLoading, notisLoading  } from '../redux/slice/sliceApp';
 import { toast } from 'react-hot-toast';
-import { Box, Button, Checkbox, Container,FormControlLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, Container,FormControlLabel, TextField, Typography } from '@mui/material';
 import LoadingApp from './Loading';
 
 function Login() {
@@ -17,7 +17,8 @@ function Login() {
         onSubmit: (value) => {
             dispatch(isLoading());
             clientAxios.post('/login', JSON.stringify(value)).then((res) => {
-                dispatch(applogin({ user: res.data.user, token: res.data.toke }));
+                console.log(res.data);
+                dispatch(applogin({ user: res.data.foundUser, token: res.data.toke }));
                 toast.success('Login exitoso!!!', {
                     icon: '😉',
                 });
@@ -77,10 +78,6 @@ function Login() {
               autoComplete="current-password"
               onChange={formikLogin.handleChange}
               value={formikLogin.values.password} 
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
