@@ -3,6 +3,11 @@ import App from '../App';
 import ErrorPage from '../pages/error-page'; 
 import Login from '../components/Login';
 import ListSurvey from '../components/ListSurvey';
+import Register from '../components/Register';
+import Home from '../components/Home';
+import Profile from '../components/Profile';
+import ProtectRouter from '../pages/ProtectRouter';
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -11,8 +16,16 @@ const router = createBrowserRouter([
           children: [
              {
                 path: '/survey',
-                element: <ListSurvey />
-             }
+                element: <ProtectRouter children={ <ListSurvey />} />
+             },
+             {
+               path: '/home',
+               element: <Home />
+            },
+            {
+               path: '/profile',
+               element: <ProtectRouter children={ <Profile />} />
+            }
           ]
     },
     {
@@ -20,7 +33,8 @@ const router = createBrowserRouter([
          element: <Login/>
      },
      {
-        path: '/register'
+        path: '/register',
+        element: <Register />
      }
 ])
 

@@ -10,6 +10,7 @@ import { deleteDetailSurvey, removelist } from '../redux/slice/sliceListSurvey';
 import { Form, useNavigate } from 'react-router-dom';
 import { FormControl, Radio, RadioGroup } from '@mui/material';
 import { useFormik } from 'formik';
+import { toast } from 'react-hot-toast';
 import { clientAxios } from '../hooks/clienteAxios';
 
 
@@ -38,6 +39,8 @@ export default function DialogBot() {
                         clientAxios.put('/surveyIdBoto/'+ detailSurvey._id , JSON.stringify({ "idUser":idUser})).then(res => {
                             dispacht(hidden());
                             dispacht(removelist());
+                        }).catch(error => {
+                           toast.error(error.message);
                         })
                       }
                   })
@@ -49,7 +52,9 @@ export default function DialogBot() {
                       clientAxios.put('/surveyIdBoto/'+ detailSurvey._id , JSON.stringify({ "idUser":idUser})).then(res => {
                           dispacht(hidden());
                           dispacht(removelist())
-                      })
+                      }).catch(error => {
+                        toast.error(error.message);
+                     })
                     }
                 })
              }
@@ -58,7 +63,6 @@ export default function DialogBot() {
 })
 
     return (
-        <div>
             <Dialog open={isOpen} onClose={handleClose}>
                 <DialogTitle>Survey</DialogTitle>
                 <DialogContent >
@@ -91,6 +95,5 @@ export default function DialogBot() {
                     <Button onClick={handleClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
-        </div>
     );
 }

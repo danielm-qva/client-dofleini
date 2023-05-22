@@ -1,3 +1,14 @@
-.overflow {
-  overflow: hidden;
+
+body, html { 
+  margin:0; 
+  padding:0; 
+  height:100%; 
+} 
+
+body{
+  min-width: 100vh;
+  min-height: min-content;
+  overflow-x: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto ;
 }

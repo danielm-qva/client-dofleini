@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { applogout } from '../redux/slice/sliceApp';
+import { Home , ArticleRounded } from '@mui/icons-material'; 
 
 function AppNavbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -35,7 +36,6 @@ function AppNavbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    dispacht(applogout());
   };
  
   const logoutApp = () => {
@@ -43,7 +43,8 @@ function AppNavbar() {
   }
 
   return (
-    <AppBar position="fixed" color='secondary'>
+    <header>
+    <AppBar position="static" color='primary'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -117,14 +118,14 @@ function AppNavbar() {
         
             <Link
               to='/home'
-              style = {{textDecoration: 'none'}}
+              style = {{textDecoration: 'none' , display: 'flex' ,  }}
             >
               <Button
                 key="home"
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'flex'}}
               >
-                Home
+             <Home/>  Home
               </Button>
             </Link>
             
@@ -135,9 +136,9 @@ function AppNavbar() {
               <Button
                 key="survey"
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'flex' }}
               >
-                Survey
+               <ArticleRounded /> Survey
               </Button>
             </Link>
           </Box>
@@ -146,7 +147,7 @@ function AppNavbar() {
             {
               login ? (<>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <IconButton style={{backgroundColor: 'black'}} onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                   </IconButton>
                 </Tooltip>
@@ -166,7 +167,7 @@ function AppNavbar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                    <MenuItem key="Profile" onClick={handleCloseUserMenu}>
+                    <MenuItem key="Profile" onClick={() => navigate('/profile')}>
                       <Typography textAlign="center">Profile</Typography>
                     </MenuItem>
                     <MenuItem onClick={logoutApp} key="Logout">
@@ -193,6 +194,7 @@ function AppNavbar() {
         </Toolbar>
       </Container>
     </AppBar>
+    </header>
   );
 }
 export default AppNavbar;

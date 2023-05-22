@@ -1,7 +1,19 @@
+import { Box, Container, Grid } from "@mui/material";
 
 function Home () {
     return (
-        <h1>Hello word</h1>
+       <>
+        <Container>
+            <Grid gridRow={3}>
+                 <Box>
+              hola1
+                 </Box>
+                 <Box>
+                  HOla
+                 </Box>
+            </Grid>
+        </Container>
+       </> 
     )
 }
 
