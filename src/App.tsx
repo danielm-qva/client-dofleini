@@ -7,19 +7,18 @@ import DialogBot from './components/DialogBoto';
 import { Suspense } from 'react';
 import LoadingApp from './components/Loading';
 import AddDialog from './components/AddDialog';
-
-
 function App() {
   return (
     <>
       <header>
         <AppNavbar />
         <Toaster position='top-right' reverseOrder={false} containerStyle={{ marginTop: '82px' }} />
-        <DialogBot />
+         <DialogBot />
         <AddDialog />
       </header>
       <body>
         <Container>
+
           <Suspense fallback={<LoadingApp />}>
           <Outlet />
           </Suspense>

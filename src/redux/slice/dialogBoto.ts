@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     listSurvey:[],
      isopen: false,
-     isOpenAddDialog: false
+     isOpenAddDialog: false,
+     isclose: false,
 }
 
 export const dialogSlice = createSlice({
@@ -21,12 +22,15 @@ export const dialogSlice = createSlice({
     },
     openAddDialogNot: (state) => {
         state.isOpenAddDialog = false
-       }
+    },
+   isCloseSurvey: (state) => {
+     state.isclose = !state.isclose;
+   }
    }
      
 })
 
-export const {open , hidden,openAddDialog , openAddDialogNot} = dialogSlice.actions;
+export const {open , hidden,openAddDialog , openAddDialogNot , isCloseSurvey} = dialogSlice.actions;
 
 export default dialogSlice.reducer
 

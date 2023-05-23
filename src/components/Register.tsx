@@ -7,15 +7,15 @@ import { toast } from "react-hot-toast";
 const Register = () => {
     const navigate = useNavigate();
     const formikLogin = useFormik({
-        initialValues: { "username": "", "fullName": "", "password": '' },
+        initialValues: { "username": "", "fullname": "", "password": '' },
         onSubmit: (value) => {
-            console.log(value);
             clientAxios.post('/register' ,JSON.stringify(value)).then((a) => {
                 toast.success('Registro exitoso!!!', {
                     icon: '😉',
                   });
+                  navigate('/login');
             }).catch(error => {
-                toast.error('Ha ocurrido un problam', {
+                toast.error('Ha ocurrido un problem', {
                     icon: '😒',
                   });
             })
@@ -66,13 +66,13 @@ const Register = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="fullName"
+                            id="fullname"
                             label="Full Name"
-                            name="fullName"
-                            autoComplete="fullName"
+                            name="fullname"
+                            autoComplete="fullname"
                             autoFocus
                             onChange={formikLogin.handleChange}
-                            value={formikLogin.values.fullName}
+                            value={formikLogin.values.fullname}
                         />
                         <TextField
                             margin="normal"

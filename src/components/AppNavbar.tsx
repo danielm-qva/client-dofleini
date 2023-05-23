@@ -40,6 +40,7 @@ function AppNavbar() {
  
   const logoutApp = () => {
     dispacht(applogout());
+    navigate('/home');
   }
 
   return (

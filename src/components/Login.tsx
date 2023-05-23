@@ -17,7 +17,6 @@ function Login() {
     onSubmit: (value) => {
       dispatch(isLoading());
       clientAxios.post('/login', JSON.stringify(value)).then((res) => {
-        console.log(res.data);
         dispatch(applogin({ user: res.data.foundUser, token: res.data.toke }));
         toast.success('Login exitoso!!!', {
           icon: '😉',

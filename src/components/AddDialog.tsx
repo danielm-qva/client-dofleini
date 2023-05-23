@@ -59,7 +59,7 @@ function AddDialog() {
                         type='submit'
                         fullWidth
                         variant="contained" size="small" color="primary">
-                        Add Surey
+                        Add Survey
                     </Button>
                 </Form>
             </DialogContent>

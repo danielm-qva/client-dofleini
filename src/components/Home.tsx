@@ -1,17 +1,12 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 
 function Home () {
     return (
        <>
         <Container>
-            <Grid gridRow={3}>
-                 <Box>
-              hola1
-                 </Box>
-                 <Box>
-                  HOla
-                 </Box>
-            </Grid>
+             <Typography variant="h4"  component='h4'>
+                  Hola estamos en el Home
+             </Typography>
         </Container>
        </> 
     )

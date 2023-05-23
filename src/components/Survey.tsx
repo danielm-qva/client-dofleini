@@ -1,5 +1,5 @@
 
-import { Box, Card, CardActions, CardContent, Grid, LinearProgress, Button, Typography } from "@mui/material";
+import { Box, Card, CardActions, CardContent, Grid, LinearProgress, Button, Typography, Tooltip, IconButton } from "@mui/material";
 import moment from 'moment';
 import { FC, useState, useEffect } from 'react';
 import { } from '@mui/icons-material';
@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addlist } from "../redux/slice/sliceListSurvey";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {toast} from 'react-hot-toast';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
+import { isCloseSurvey } from "../redux/slice/dialogBoto";
 
 interface ISurvey {
     question: string;
@@ -16,9 +19,11 @@ interface ISurvey {
     idBotos: string[];
     idSurvey: string;
     priority: string;
+    isBoto : boolean;
+    isclose: boolean
 }
 
-const Survey: FC<ISurvey> = ({idSurvey , question, dateInit, positiveBoots, idBotos , priority}) => {
+const Survey: FC<ISurvey> = ({idSurvey , question, dateInit, positiveBoots, idBotos , priority , isBoto , isclose}) => {
 
     const [diffDay, setDiffday] = useState(0);
     const [positive, setPositive] = useState(0); 
@@ -26,8 +31,6 @@ const Survey: FC<ISurvey> = ({idSurvey , question, dateInit, positiveBoots, idBo
     const token = useSelector((store: any) => store.app.token);
     const listSurvey  = useSelector((store: any) => store.surveyL.listSurvey);
 
-
- 
     useEffect(() => {
         const day1 = moment();
         const day2 = moment(dateInit);
@@ -51,7 +54,16 @@ const Survey: FC<ISurvey> = ({idSurvey , question, dateInit, positiveBoots, idBo
         })
     }
 
-
+    const handelClosed = (data: object) => {
+        clientAxios.defaults.headers.common['Authorization'] = 'Beare ' + token;
+        clientAxios.patch('/survey/'+ idSurvey , JSON.stringify(data)).then( a => {
+            toast.success("Operation successfully");  
+            dispacht(isCloseSurvey())
+        }).catch(error => {
+            toast.error("Operation error");
+        })
+    }
+  
     return (
         <Card sx={{ minWidth: 275 , boxShadow: '5px 5px 10px black' }}>
             <CardContent >
@@ -63,10 +75,25 @@ const Survey: FC<ISurvey> = ({idSurvey , question, dateInit, positiveBoots, idBo
                 <Typography gutterBottom variant="h5" component="p">
                  { priority }
                 </Typography>
+                {
+                    isBoto ? (
+                        <Tooltip title="Boot done.">
+                        <IconButton>
+                        <CheckIcon color="success" />
+                        </IconButton>
+                      </Tooltip>
+                        ) :
+                         (
+                            <Tooltip title="Boot not done.">
+                            <IconButton>
+                            <ClearIcon  color="error" />
+                            </IconButton>
+                          </Tooltip>
+                        )
+                }
                 <Button  onClick={handleDelete}>
                     <DeleteIcon/>
-                </Button>
-               
+                </Button>           
                 </Box>
                 <Typography variant="body2" color="textSecondary" component="p">
                    <b>
@@ -118,7 +145,10 @@ const Survey: FC<ISurvey> = ({idSurvey , question, dateInit, positiveBoots, idBo
                     width: '100%'
                  }}
                  >
-                <Button size="small">Detail</Button>
+                {
+                    !isclose ? (<Button  onClick={() => handelClosed({'isclose': true})} size="small">Close</Button>) : 
+                         (<Button  onClick={() => handelClosed({'isclose': false})} size="small">Open</Button>)
+                }
                 Created: {diffDay} Days
                 </Box>
             </CardActions>
